@@ -1,0 +1,40 @@
+.btn{
+    width: 150px;
+    border-top-right-radius: 33px;
+    border-bottom-right-radius: 33px;
+}
+a{
+    text-decoration: none;
+    color: black;
+
+}
+a:hover{
+    color: black;
+}
+.img{
+    width: 19px;
+    height: 19px;
+}
+.button{
+    width: 150px;
+    border-top-right-radius: 33px;
+    border-bottom-right-radius: 33px;
+    border: 0;
+    position: absolute;
+    bottom: 20px;
+    padding: 13px;
+}
+.headings{
+    color: rgb(77, 76, 76);
+}
+
+
+
+
+
+
+
+
+
+
+/* btn-light btn-lg text-dark mb-3 fixed-bottom fw-bold */

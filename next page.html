@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="next page.css">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <div class="container-fluid p-0 overflow-hidden">
+        <div class="row">
+            <div class="col-md-4  col-sm-12 mt-4 fw-bold  ">
+                <div>
+
+                    <button type="button" class="btn btn-dark btn-lg mb-3  fw-bold"> <i
+                            class="fa-regular fa-clipboard px-2"></i>Task</button>
+                </div>
+                <div>
+
+                    <button type="button" class="btn btn-light btn-lg text-dark text-dark fw-bold "><i
+                            class="fa-solid fa-location-dot px-2"></i><a href="/location.html">location</a> </button>
+                </div>
+                <div>
+
+                    <button type="button" class="btn btn-light btn-lg text-dark   fixed-bottom mb-3 fw-bold"> <i
+                            class="fa-solid fa-right-from-bracket me-2"></i><a href="/work.html">logout</a> </button>
+                </div>
+            </div>
+
+
+
+
+
+            <div class="col-md-8 col-sm-12 ms-lg-0 col-lg-8 ">
+
+
+
+                <button type="button" class=" modalbtn border-0 outline-0 bg-white mt-4  fw-bold me-4 "
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    +Add new task
+                </button>
+                <div class="modal fade " id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content mt-5">
+                            <div class="modal-header">
+                                <h5 class="modal-title modaltitle" id="exampleModalLabel">New Task</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class=" modal-body ">
+                                <form>
+                                    <div class="mb-3 border-bottom text-sm-start ">
+                                        <label for="validationDefault01" class="text1 form-label ms-3"><i
+                                                class=" icon fa-regular fa-comment-dots me-2 "></i>Summary</label>
+                                        <input type="text" class="form-control input1 border-0 "
+                                            id="validationDefault01" required>
+                                    </div>
+                                    <div class=" border-bottom text-sm-start">
+                                        <label for="validationDefault02" class="form-label text1 ms-3 mt-4"><i
+                                                class="icon fa-solid fa-bars me-2"></i>Description</label>
+                                        <!-- <input type="text" class="form-control input1 border-0 "
+                                            id="validationDefault02" required> -->
+                                            <textarea name="" id="validationDefault02" cols="62" rows="2"
+                                            class="form-control input1 border-0 "required></textarea>
+                                    </div>
+
+
+
+
+
+                                    <div class="mb-3 border-bottom text-sm-start">
+                                        <label for="validationDefault03" class="form-label text1 ms-3 mt-4 "><i
+                                                class="icon fa-regular fa-clock me-2"></i>Due Date</label>
+                                        <input type="datetime-local" class="form-control input1 border-0"
+                                            id="validationDefault03" required>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <button class="btnn btn-dark mt-3" type="button"
+                                            onclick="saveData()">Save</button>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-center">
+                                        <button class="btnn btn-light mt-3 border-0" type="button"
+                                            data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="tasks mt-3 ms-2">
+                    <p class="para fw-bold">Incomplete</p>
+                    <div id="incompletedTasks"></div>
+                    <p class="para fw-bold ">Completed</p>
+                    <div id="completedTasks"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+        <script>
+            let valuesummary = document.getElementById('validationDefault01');
+            let inputcolor = document.getElementById('sidebar');
+            let datetime = document.getElementById('validationDefault03');
+            let valuedescription = document.getElementById('validationDefault02');
+            let completedTasks = document.getElementById('completedTasks');
+            let incompletedTasks = document.getElementById('incompletedTasks');
+            let tasks = [];
+
+            function saveData() {
+                const summary = valuesummary.value.trim();
+                const description = valuedescription.value.trim();
+                const DueDate = datetime.value;
+
+                if (summary === '' || description === '' || DueDate === '') {
+                    alert('Please fill in all fields.');
+                } else {
+                    tasks.push({ summary, description, temp: DueDate, completed: false });
+                    valuesummary.value = '';
+                    valuedescription.value = '';
+                    datetime.value = '';
+                    updateTaskLists();
+                }
+            }
+
+            function updateTaskLists() {
+                let completedHTML = '';
+                let incompletedHTML = '';
+
+                tasks.forEach((task, index) => {
+                    const taskHTML = `
+                            <p class='d-flex'>
+                                <input type="checkbox" class = "position-fixed" onchange="toggleCompleted(${index})" ${task.completed ? 'checked' : ''}>
+                                <div class ="classes">
+                                <p class="one fs-5" id = "head">${task.summary}</p>
+                                <img src="watch.png" alt="" class = "img position-fixed mt-1 ">
+                                <p class="one ms-4 text-secondary" id = "heads">${task.temp}</p>
+                                </div>
+                            </p>
+                        `;
+
+                    if (task.completed) {
+                        completedHTML += taskHTML;
+                    } else {
+                        incompletedHTML += taskHTML;
+                    }
+                });
+
+                completedTasks.innerHTML = completedHTML;
+                incompletedTasks.innerHTML = incompletedHTML;
+            }
+
+            function toggleCompleted(index) {
+                tasks[index].completed = !tasks[index].completed;
+                updateTaskLists();
+            }
+        </script>
+
+</body>
+
+</html>

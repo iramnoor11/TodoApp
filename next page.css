@@ -1,0 +1,44 @@
+.btn{
+    width: 150px;
+    border-top-right-radius: 33px;
+    border-bottom-right-radius: 33px;
+    
+}
+.img {
+    width: 19px;
+    height: 19px;
+    margin-right: 2px;
+}
+.one {
+    font-weight: 20px;
+    padding: 2px;
+    margin-bottom: -3px;
+}
+.classes {
+    margin-left: 23px;
+    margin-top: -28px;
+}
+.btnn{
+    width: 300px;
+    padding: 10px;
+    border-radius: 30px;
+}
+a{
+    text-decoration: none;
+    color: black;
+}
+a:hover{
+    color: black; 
+}
+.modalbtn{
+    color: rgb(77, 76, 76);
+}
+.para{
+    color: rgb(77, 76, 76);
+}
+.text1{
+    color:  rgb(162 155 155);;
+}
+.icon{
+    color: black;
+}
